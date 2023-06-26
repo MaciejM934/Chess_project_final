@@ -1,14 +1,41 @@
 <p style="color: green"><%= notice %></p>
 
-<h1>Boards</h1>
-
-<div id="boards">
-  <% @boards.each do |board| %>
-    <%= render board %>
-    <p>
-      <%= link_to "Show this board", board %>
-    </p>
-  <% end %>
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <h1>Boards</h1>
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-12">
+      <table class="table mb-0">
+        <thead>
+          <tr>
+            <th scope="col">Title</th>
+            <th scope="col">Created</th>
+            <th scope="col">Updated</th>
+            <th scope="col">White ID</th>
+            <th scope="col">Black ID</th>
+            <th scope="col">Body</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @boards.each do |board| %>
+            <tr>
+              <td><%= link_to board.title, board %></td>
+              <td><%= board.created_at %></td>
+              <td><%= board.updated_at %></td>
+              <td><%= board.is_white %></td>
+              <td><%= truncate(board.history_string, :length => 80) %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12 mt-3">
+      <%= button_to "New board", { :action => "new" }, :method => :get, :class => "btn btn-success" %>
+    </div>
+  </div>
 </div>
-
-<%= link_to "New board", new_board_path %>
