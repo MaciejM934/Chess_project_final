@@ -3,8 +3,8 @@ class SessionController < ApplicationController
   end
 
   def create
-    if params[:session].present? && params[:session][:index].present? && params[:session][:password].present?
-      player = Player.find_by(nickname: params[:session][:index])
+    if params[:session].present? && params[:session][:id].present? && params[:session][:password].present?
+      player = Player.find_by(nickname: params[:session][:id])
       if player && player.authenticate(params[:session][:password])
         log_in player
         redirect_to player

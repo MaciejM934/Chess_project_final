@@ -11,7 +11,7 @@
     <%= image_tag('Szachy_logo_biale.png', alt: 'Szachy_logo_biale.png', class: 'logo-img') %>
   </div>
   <div class="plansza">
-    <%= image_tag('szachy_plansza.png', alt: 'zachy_plansza.png', class: 'plansza-img') %>
+    <%= image_tag('szachy_plansza.png', alt: 'szachy_plansza.png', class: 'plansza-img') %>
     </div>
   </div>
 
@@ -21,17 +21,20 @@
     <%= form_for(:session, url: login_path) do |f| %>
       <div class="form-group">
       <%= f.label :nickname %>
-      <%= f.text_field :nickname, class: 'form-control' %>    
+      <%= f.text_field :id, class: 'form-control' %>    
       </div>
 
       <div class="form-group">
       <%= f.label :password %>
       <%= f.password_field :password, class: 'form-control' %>    
-      </div>
+      </div> 
 
-
+      <div class="spacer"></div>
+      
       <div class="actions">
         <%= f.submit "Zaloguj się", class: "btn btn-primary" %>
+      <div class="spacer"></div>
+      <%= link_to "Zarejestruj się", new_player_path, class: "btn btn-primary" %>
       </div>
     <% end %>
 

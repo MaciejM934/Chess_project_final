@@ -1,13 +1,52 @@
-<p style="color: green"><%= notice %></p>
+<style>
+  .player-details {
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
 
-<h1>Players</h1>
+  .player-details p {
+    margin: 0;
+    line-height: 1.5;
+  }
 
-<div id="players">
+  .player-details strong {
+    font-weight: bold;
+    margin-right: 5px;
+  }
+
+  .notice {
+    color: green;
+  }
+
+  .players-container {
+    margin-top: 20px;
+  }
+
+  .players-container p {
+    margin-bottom: 5px;
+  }
+
+  .players-container a {
+    color: #337ab7;
+    text-decoration: none;
+  }
+</style>
+
+<p class="notice"><%= notice %></p>
+
+<h1>Utworzeni Zawodnicy</h1>
+
+<div class="players-container" id="players">
   <% @players.each do |player| %>
-    <%= render player %>
-    <p>
-      <%= link_to "Show this player", player %>
-    </p>
+    <div class="player-details">
+      <%= render player %>
+      <p>
+        <%= link_to "Show this player", player %>
+      </p>
+    </div>
   <% end %>
 </div>
 

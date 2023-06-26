@@ -1,10 +1,33 @@
-<h1>Editing player</h1>
+<style>
+  .edit-title {
+    margin-bottom: 20px;
+  }
+
+  .actions {
+    margin-top: 20px;
+  }
+
+  .actions a {
+    display: inline-block;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-right: 10px;
+  }
+
+  .actions a:hover {
+    background-color: #0056b3;
+  }
+</style>
+
+<h1 class="edit-title">Editing player</h1>
 
 <%= render "form", player: @player %>
 
-<br>
-
-<div>
-  <%= link_to "Show this player", @player %> |
+<div class="actions">
+  <%= link_to "Show this player", @player %>
   <%= link_to "Back to players", players_path %>
 </div>

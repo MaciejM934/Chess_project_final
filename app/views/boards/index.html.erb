@@ -11,22 +11,19 @@
       <table class="table mb-0">
         <thead>
           <tr>
-            <th scope="col">Title</th>
+            <th scope="col">Game Name</th>
             <th scope="col">Created</th>
             <th scope="col">Updated</th>
-            <th scope="col">White ID</th>
-            <th scope="col">Black ID</th>
-            <th scope="col">Body</th>
+            <th scope="col">Created By</th>
           </tr>
         </thead>
         <tbody>
           <% @boards.each do |board| %>
             <tr>
-              <td><%= link_to board.title, board %></td>
+              <td><%= link_to board.game_name, board %></td>
               <td><%= board.created_at %></td>
               <td><%= board.updated_at %></td>
-              <td><%= board.is_white %></td>
-              <td><%= truncate(board.history_string, :length => 80) %></td>
+              <td><%= board.black_player_id %></td>
             </tr>
           <% end %>
         </tbody>

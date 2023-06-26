@@ -1,9 +1,23 @@
-<h1>New player</h1>
+<style>
+  .new-player-title {
+    margin-bottom: 20px;
+  }
+
+  .actions {
+    margin-top: 20px;
+  }
+
+  .actions a {
+    color: #337ab7;
+    text-decoration: none;
+    margin-right: 10px;
+  }
+</style>
+
+<h1 class="new-player-title">Nowy Zawodnik</h1>
 
 <%= render "form", player: @player %>
 
-<br>
-
-<div>
+<div class="actions">
   <%= link_to "Back to players", players_path %>
 </div>

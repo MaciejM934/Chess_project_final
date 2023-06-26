@@ -1,32 +1,86 @@
-<%= form_with(model: player) do |form| %>
-  <% if player.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(player.errors.count, "error") %> prohibited this player from being saved:</h2>
+<style>
+  .container {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
 
-      <ul>
-        <% player.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
+  .error-messages {
+    color: red;
+    margin-bottom: 10px;
+  }
+
+  .form-field {
+    margin-bottom: 15px;
+  }
+
+  .form-field label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+
+  .form-field input[type="text"],
+  .form-field input[type="password"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+
+  .form-actions {
+    text-align: center;
+  }
+
+  .button {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #ccc;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+  }
+
+  .button:hover {
+    background-color: #999;
+  }
+</style>
+
+<div class="container">
+  <%= form_with(model: player) do |form| %>
+    <% if player.errors.any? %>
+      <div class="error-messages">
+        <h2><%= pluralize(player.errors.count, "error") %> prohibited this player from being saved:</h2>
+
+        <ul>
+          <% player.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="form-field">
+      <%= form.label :nickname %>
+      <%= form.text_field :nickname %>
+    </div>
+
+    <div class="form-field">
+      <%= form.label :password %>
+      <%= form.password_field :password, id: :player_password %>
+    </div>
+
+    <div class="form-field">
+      <%= form.label :password_confirmation %>
+      <%= form.password_field :password_confirmation, id: :player_password_confirmation %>
+    </div>
+
+    <div class="form-actions">
+      <%= form.submit "Create Player", class: "button" %>
+      <%= link_to "Back to Players", players_path, class: "button" %>
     </div>
   <% end %>
-
-  <div>
-    <%= form.label :nickname, style: "display: block" %>
-    <%= form.text_field :nickname %>
-  </div>
-
-  <div class="field">
-  <%= form.label :password %>
-  <%= form.password_field :password, id: :student_password %>
 </div>
-
-<div class="field">
-  <%= form.label :password_confirmation %>
-  <%= form.password_field :password_confirmation, id: :student_password_confirmation %>
-</div>
-
-  <div>
-    <%= form.submit %>
-  </div>
-<% end %>
