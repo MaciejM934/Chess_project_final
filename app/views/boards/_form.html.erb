@@ -21,6 +21,11 @@
     <%= form.text_field :game_name %>
   </div>
 
+  <div class="field">
+  <%= form.label :black_player_id %>
+  <%= form.collection_select :black_player_id, Player.all, :id, :nickname, prompt: true %>
+</div>
+
   <div>
     <%= form.submit %>
   </div>

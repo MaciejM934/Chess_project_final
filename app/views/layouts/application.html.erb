@@ -17,9 +17,9 @@
 <ul>
   <li><%= link_to "Strona główna", root_path %></li>
   <li><%= link_to "Plansze", boards_path %></li>
-  <li><%= link_to "Studenci", players_path %></li>
+  <li><%= link_to "Gracze", players_path %></li>
   <% if logged_in? %>
-    <li><%= link_to current_student.name, current_student %></li>
+    <li><%= link_to current_player.nickname, current_player %></li>
     <li><%= link_to "Wyloguj", logout_path, method: :delete %></li>
   <% else %>
     <li><%= link_to "Zaloguj", login_path %></li>

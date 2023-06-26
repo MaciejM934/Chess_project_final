@@ -21,7 +21,8 @@ class BoardsController < ApplicationController
 
   # POST /boards or /boards.json
   def create
-    @board = Board.new(board_params)
+    @board = current_player.boards.build(board_params)
+    @board.white_player_id = current_player
 
     respond_to do |format|
       if @board.save
@@ -65,6 +66,6 @@ class BoardsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def board_params
-      params.require(:board).permit(:history_string, :game_name)
+      params.require(:board).permit(:history_string, :game_name, :white_player_id, :black_player_id)
     end
 end
