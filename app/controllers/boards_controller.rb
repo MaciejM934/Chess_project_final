@@ -58,6 +58,19 @@ class BoardsController < ApplicationController
     end
   end
 
+  def validate_move
+    move = params[:move]
+
+    unless valid_move?(move)
+      redirect_to new_board_path, alert: "Invalid move format."
+    end
+  end
+
+  def valid_move?(move)
+    move.match?(/\A[a-h][1-8][a-h][1-8][qnrb]?\z/i)
+  end
+
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_board
