@@ -1,0 +1,10 @@
+--- views/layouts/application.html.erb
++++ views/layouts/application.html.erb
+@@ -11,6 +11,7 @@
+   </head>
+ 
+   <body>
++    <%= render 'layouts/navbar' %>
+     <%= yield %>
+   </body>
+ </html>

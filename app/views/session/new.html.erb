@@ -1,11 +1,40 @@
-<h1>Logowanie</h1>
+<div class="main-content">
+  <div class="welcome-banner">
+    <div class="welcome-text">
+      <h2>Graj w szachy korespondencyjne!</h2>
+      <p>Witaj w aplikacji stworzonej przez Macieja Mrowca oraz Maksyma Wilka w ramach projektu dotyczącego aplikacji mobilnych. Ta aplikacja pozwoli ci rozegrać wiele emocjonujących partii szachów korespondencyjnych.</p>
+      <p>Zaloguj się, aby rozpocząć rozgrywkę i cieszyć się grą ze znajomymi.</p>
+    </div>
+  </div1>
 
-<%= form_for(:session, url: login_path) do |f| %>
-  <%= f.label :index %>
-  <%= f.text_field :index, class: 'form-control' %>
+  <div class="logo">
+    <%= image_tag('Szachy_logo_biale.png', alt: 'Szachy_logo_biale.png', class: 'logo-img') %>
+  </div>
+  <div class="plansza">
+    <%= image_tag('szachy_plansza.png', alt: 'zachy_plansza.png', class: 'plansza-img') %>
+    </div>
+  </div>
 
-  <%= f.label :password %>
-  <%= f.password_field :password, class: 'form-control' %>
+  <div class="login-section">
+    <h2 class="login-heading">Zaloguj się</h2>
 
-  <%= f.submit "Zaloguj" %>
-<% end %>
+    <%= form_for(:session, url: login_path) do |f| %>
+      <div class="form-group">
+      <%= f.label :nickname %>
+      <%= f.text_field :nickname, class: 'form-control' %>    
+      </div>
+
+      <div class="form-group">
+      <%= f.label :password %>
+      <%= f.password_field :password, class: 'form-control' %>    
+      </div>
+
+
+      <div class="actions">
+        <%= f.submit "Zaloguj się", class: "btn btn-primary" %>
+      </div>
+    <% end %>
+
+
+  </div>
+</div>
