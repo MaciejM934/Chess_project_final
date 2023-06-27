@@ -5,7 +5,22 @@
     <table style="border-collapse: collapse; margin: 0 auto;">
       <thead>
         <tr>
-          <th style="border: 1px solid white; padding: 8px;">History String</th>
+          <th style="border: 1px solid white; padding: 8px;">
+          <% created_by_player = Player.find_by(id: board.white_player_id) %> 
+                <% if created_by_player %>
+                  <%= created_by_player.nickname %>
+                <% else %>
+                  Unknown Player
+                <% end %>
+          </th>
+          <th style="border: 1px solid white; padding: 8px;">
+          <% created_by_player = Player.find_by(id: board.black_player_id) %> 
+          <% if created_by_player %>
+            <%= created_by_player.nickname %>
+          <% else %>
+            Unknown Player
+          <% end %>
+          </th>
         </tr>
       </thead>
       <tbody>
