@@ -1,18 +1,22 @@
 <div id="<%= dom_id(board) %>" style="text-align: center;">
-  <table style="border-collapse: collapse; margin: 0 auto;">
-    <thead>
-      <tr>
-        <th style="border: 1px solid white; padding: 8px;">History String</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% board.history_string.split('/').each do |move| %>
+  <% if board.history_string.blank? %>
+    <p>No history available.</p>
+  <% else %>
+    <table style="border-collapse: collapse; margin: 0 auto;">
+      <thead>
         <tr>
-          <td style="border: 1px solid white; padding: 8px;"><%= move %></td>
+          <th style="border: 1px solid white; padding: 8px;">History String</th>
         </tr>
-      <% end %>
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+        <% board.history_string.split('/').each do |move| %>
+          <tr>
+            <td style="border: 1px solid white; padding: 8px;"><%= move %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% end %>
 
   <p>
     <strong>Game name:</strong>
@@ -36,10 +40,11 @@
         </div>
       <% end %>
     <% end %>
-    <strong>New move:</strong>
+
     <div class="actions" style="display: flex; justify-content: center; margin-top: 20px;">
+      <strong>New move:</strong>
       <%= form.text_field :new_move, class: "block-input" %>
-      </div>
       <%= form.submit "Add Move", class: "btn btn-secondary" %>
+    </div>
   <% end %>
 </div>
