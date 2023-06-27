@@ -41,21 +41,32 @@ class BoardsController < ApplicationController
       new_move = params[:board][:new_move]
       
       if new_move.present? && valid_move?(new_move)
-        
-        history_moves = @board.history_string.split('/')
-        
-        if (current_player.id == @board.white_player_id && history_moves.size.even?) ||
-           (current_player.id == @board.black_player_id && history_moves.size.odd?)
-          if @board.history_string.blank?
-            @board.history_string = new_move
-          else
-            @board.history_string += "/#{new_move}"
-          end
-        else
+        if @board.history_string.blank? && current_player.id == @board.white_player_id
+          @board.history_string = new_move
+        elsif @board.history_string.blank? && current_player.id != @board.white_player_id
           flash[:alert] = "It's not your turn to make a move."
           redirect_to board_path
           return
-        end
+        else
+          if !@board.history_string.include?('/') && current_player.id == @board.black_player_id
+            @board.history_string = "/#{new_move}"
+          elsif !@board.history_string.include?('/') && current_player.id != @board.black_player_id
+            flash[:alert] = "It's not your turn to make a move."
+            redirect_to board_path
+            return
+          else
+            history_moves = @board.history_string.split('/')
+            if (current_player.id == @board.white_player_id && history_moves.size.even?) ||
+               (current_player.id == @board.black_player_id && history_moves.size.odd?)
+  
+              @board.history_string += "/#{new_move}"
+            else
+              flash[:alert] = "It's not your turn to make a move."
+              redirect_to board_path
+              return
+            end
+          end
+        end  
       else
         flash[:alert] = "Invalid move format."
         redirect_to board_path
@@ -76,6 +87,7 @@ class BoardsController < ApplicationController
       redirect_to board_path
     end
   end
+  
   
   
   
