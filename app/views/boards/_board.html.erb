@@ -36,11 +36,10 @@
         </div>
       <% end %>
     <% end %>
-
+    <strong>New move:</strong>
     <div class="actions" style="display: flex; justify-content: center; margin-top: 20px;">
-      <%= form.label :new_move, class: "block-label" %>
       <%= form.text_field :new_move, class: "block-input" %>
+      </div>
       <%= form.submit "Add Move", class: "btn btn-secondary" %>
-    </div>
   <% end %>
 </div>
