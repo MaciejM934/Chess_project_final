@@ -6,27 +6,38 @@
       <thead>
         <tr>
           <th style="border: 1px solid white; padding: 8px;">
-          <% created_by_player = Player.find_by(id: board.white_player_id) %> 
-                <% if created_by_player %>
-                  <%= created_by_player.nickname %>
-                <% else %>
-                  Unknown Player
-                <% end %>
+            <% created_by_player = Player.find_by(id: board.white_player_id) %> 
+            <% if created_by_player %>
+              <%= created_by_player.nickname %>
+            <% else %>
+              Unknown Player
+            <% end %>
           </th>
           <th style="border: 1px solid white; padding: 8px;">
-          <% created_by_player = Player.find_by(id: board.black_player_id) %> 
-          <% if created_by_player %>
-            <%= created_by_player.nickname %>
-          <% else %>
-            Unknown Player
-          <% end %>
+            <% created_by_player = Player.find_by(id: board.black_player_id) %> 
+            <% if created_by_player %>
+              <%= created_by_player.nickname %>
+            <% else %>
+              Unknown Player
+            <% end %>
           </th>
         </tr>
       </thead>
       <tbody>
-        <% board.history_string.split('/').each do |move| %>
+        <% moves = board.history_string.split('/') %>
+        <% moves.each_with_index do |move, index| %>
+          <% player = index.even? ? board.white_player : board.black_player %>
           <tr>
-            <td style="border: 1px solid white; padding: 8px;"><%= move %></td>
+            <td style="border: 1px solid white; padding: 8px;">
+              <% if index.even? %>
+                <%= move %>
+              <% end %>
+            </td>
+            <td style="border: 1px solid white; padding: 8px;">
+              <% if index.odd? %>
+                <%= move %>
+              <% end %>
+            </td>
           </tr>
         <% end %>
       </tbody>
