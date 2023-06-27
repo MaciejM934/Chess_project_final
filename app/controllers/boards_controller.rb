@@ -38,20 +38,30 @@ class BoardsController < ApplicationController
 
   def update
     if can_edit_board?
-      @board.white_player_id = current_player.id
       new_move = params[:board][:new_move]
+      
       if new_move.present? && valid_move?(new_move)
-        if @board.history_string.blank?
-          @board.history_string = new_move
+        
+        history_moves = @board.history_string.split('/')
+        
+        if (current_player.id == @board.white_player_id && history_moves.size.even?) ||
+           (current_player.id == @board.black_player_id && history_moves.size.odd?)
+          if @board.history_string.blank?
+            @board.history_string = new_move
+          else
+            @board.history_string += "/#{new_move}"
+          end
         else
-          @board.history_string += "/#{new_move}"
+          flash[:alert] = "It's not your turn to make a move."
+          redirect_to board_path
+          return
         end
       else
         flash[:alert] = "Invalid move format."
         redirect_to board_path
         return
       end
-  
+      
       respond_to do |format|
         if @board.save
           format.html { redirect_to board_url(@board), notice: "Board was successfully updated." }
@@ -66,6 +76,7 @@ class BoardsController < ApplicationController
       redirect_to board_path
     end
   end
+  
   
   
   
