@@ -38,10 +38,15 @@ class BoardsController < ApplicationController
 
   # PATCH/PUT /boards/1 or /boards/1.json
   def update
+    @board.white_player_id = current_player.id
     new_move = params[:board][:new_move]
   
     if new_move.present? && valid_move?(new_move)
-      @board.history_string += "/#{new_move}"
+      if @board.history_string.blank?
+        @board.history_string = new_move
+      else
+        @board.history_string += "/#{new_move}"
+      end
     else
       flash[:alert] = "Invalid move format."
       redirect_to board_path

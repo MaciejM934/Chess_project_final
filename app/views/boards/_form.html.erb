@@ -17,8 +17,8 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :player_id %>
-    <%= form.select :player_id, options_for_select(Player.all.map { |player| [player.nickname, player.id] }), include_blank: true %>
+    <%= form.label :black_player_id %>
+    <%= form.collection_select :black_player_id, Player.all, :id, :nickname, prompt: true %>
   </div>
 
   <div>
