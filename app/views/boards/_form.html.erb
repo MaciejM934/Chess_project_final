@@ -8,11 +8,17 @@
         <% end %>
       </ul>
     </div>
+    <% else %>
+    <% if flash[:alert].present? %>
+      <div style="color: red">
+        <%= flash[:alert] %>
+      </div>
+    <% end %>
   <% end %>
 
-  <div>
-    <%= form.label :history_string, style: "display: block" %>
-    <%= form.text_area :history_string %>
+  <div class="field">
+    <%= form.label :player_id %>
+    <%= form.select :player_id, options_for_select(Player.all.map { |player| [player.nickname, player.id] }), include_blank: true %>
   </div>
 
   <div>

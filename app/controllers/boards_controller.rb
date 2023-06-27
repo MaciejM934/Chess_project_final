@@ -1,5 +1,6 @@
 class BoardsController < ApplicationController
   before_action :set_board, only: %i[ show edit update destroy ]
+  before_action :require_login, only: [:edit, :update, :destroy, :show, :index, :create, :new]
 
   # GET /boards or /boards.json
   def index
@@ -22,7 +23,7 @@ class BoardsController < ApplicationController
   # POST /boards or /boards.json
   def create
     @board = current_player.boards.build(board_params)
-    @board.white_player_id = current_player
+    @board.white_player_id = current_player.id
 
     respond_to do |format|
       if @board.save
@@ -37,8 +38,18 @@ class BoardsController < ApplicationController
 
   # PATCH/PUT /boards/1 or /boards/1.json
   def update
+    new_move = params[:board][:new_move]
+  
+    if new_move.present? && valid_move?(new_move)
+      @board.history_string += "/#{new_move}"
+    else
+      flash[:alert] = "Invalid move format."
+      redirect_to board_path
+      return
+    end
+  
     respond_to do |format|
-      if @board.update(board_params)
+      if @board.save
         format.html { redirect_to board_url(@board), notice: "Board was successfully updated." }
         format.json { render :show, status: :ok, location: @board }
       else
@@ -47,6 +58,8 @@ class BoardsController < ApplicationController
       end
     end
   end
+  
+  
 
   # DELETE /boards/1 or /boards/1.json
   def destroy
@@ -58,19 +71,6 @@ class BoardsController < ApplicationController
     end
   end
 
-  def validate_move
-    move = params[:move]
-
-    unless valid_move?(move)
-      redirect_to new_board_path, alert: "Invalid move format."
-    end
-  end
-
-  def valid_move?(move)
-    move.match?(/\A[a-h][1-8][a-h][1-8][qnrb]?\z/i)
-  end
-
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_board
@@ -81,4 +81,17 @@ class BoardsController < ApplicationController
     def board_params
       params.require(:board).permit(:history_string, :game_name, :white_player_id, :black_player_id)
     end
+  
+    def valid_move?(move)
+      move.match?(/\A[a-h][1-8][a-h][1-8][qnrb]?\z/i)
+    end
+
+    def require_login
+      unless logged_in?
+        redirect_to login_path
+      end
+    end
 end
+
+
+

@@ -6,6 +6,7 @@
 
         <% if logged_in? %>
           <%= render "form", board: @board %>
+          
         <% else %>
           <p>You must be signed in to create a board.</p>
         <% end %>
