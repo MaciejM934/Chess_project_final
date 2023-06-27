@@ -1,0 +1,33 @@
+<%= form_with(model: board) do |form| %>
+    <% if board.errors.any? %>
+      <div style="color: red">
+        <h2><%= pluralize(board.errors.count, "error") %> prohibited this board from being saved:</h2>
+        <ul>
+          <% board.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+      <% else %>
+      <% if flash[:alert].present? %>
+        <div style="color: red">
+          <%= flash[:alert] %>
+        </div>
+      <% end %>
+    <% end %>
+  
+    <div class="field">
+      <%= form.label :black_player_id %>
+      <%= form.collection_select :black_player_id, Player.all, :id, :nickname, prompt: true %>
+    </div>
+  
+    <div>
+      <%= form.label :game_name, style: "display: block" %>
+      <%= form.text_field :game_name %>
+    </div>
+  
+    <div class="actions">
+      <%= form.submit "Create Board", class: "btn-secondary" %>
+    </div>
+  <% end %>
+  

@@ -23,7 +23,14 @@
               <td><%= link_to board.game_name, board %></td>
               <td><%= board.created_at %></td>
               <td><%= board.updated_at %></td>
-              <td><%= board.black_player_id %></td>
+              <td>
+              <% created_by_player = Player.find_by(id: board.white_player_id) %> 
+              <% if created_by_player %>
+                <%= created_by_player.nickname %>
+              <% else %>
+                Unknown Player
+              <% end %>
+            </td>
             </tr>
           <% end %>
         </tbody>

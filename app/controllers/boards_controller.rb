@@ -4,7 +4,7 @@ class BoardsController < ApplicationController
 
   # GET /boards or /boards.json
   def index
-    @boards = Board.all
+    @boards = Board.where("black_player_id = ? OR white_player_id = ?", current_player.id, current_player.id)
   end
 
   # GET /boards/1 or /boards/1.json
@@ -37,10 +37,9 @@ class BoardsController < ApplicationController
   end
 
   def update
-    @board.white_player_id = current_player.id
-    new_move = params[:board][:new_move]
-  
     if can_edit_board?
+      @board.white_player_id = current_player.id
+      new_move = params[:board][:new_move]
       if new_move.present? && valid_move?(new_move)
         if @board.history_string.blank?
           @board.history_string = new_move
@@ -103,7 +102,7 @@ class BoardsController < ApplicationController
     end
     
     def can_edit_board?
-      current_player && (@board.white_player_id == current_player.id || @board.black_player_id == current_player.id)
+      current_player && (current_player.id == @board.white_player_id || current_player.id == @board.black_player_id )
     end
 
 end
