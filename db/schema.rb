@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_26_155346) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_26_194447) do
   create_table "boards", force: :cascade do |t|
     t.text "history_string"
     t.string "game_name"
@@ -18,6 +18,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_26_155346) do
     t.datetime "updated_at", null: false
     t.integer "white_player_id"
     t.integer "black_player_id"
+    t.string "new_move"
   end
 
   create_table "players", force: :cascade do |t|
