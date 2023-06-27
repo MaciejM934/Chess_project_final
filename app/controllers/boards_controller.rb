@@ -36,33 +36,38 @@ class BoardsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /boards/1 or /boards/1.json
   def update
     @board.white_player_id = current_player.id
     new_move = params[:board][:new_move]
   
-    if new_move.present? && valid_move?(new_move)
-      if @board.history_string.blank?
-        @board.history_string = new_move
+    if can_edit_board?
+      if new_move.present? && valid_move?(new_move)
+        if @board.history_string.blank?
+          @board.history_string = new_move
+        else
+          @board.history_string += "/#{new_move}"
+        end
       else
-        @board.history_string += "/#{new_move}"
+        flash[:alert] = "Invalid move format."
+        redirect_to board_path
+        return
+      end
+  
+      respond_to do |format|
+        if @board.save
+          format.html { redirect_to board_url(@board), notice: "Board was successfully updated." }
+          format.json { render :show, status: :ok, location: @board }
+        else
+          format.html { render :edit, status: :unprocessable_entity }
+          format.json { render json: @board.errors, status: :unprocessable_entity }
+        end
       end
     else
-      flash[:alert] = "Invalid move format."
+      flash[:alert] = "You are not one of the players."
       redirect_to board_path
-      return
-    end
-  
-    respond_to do |format|
-      if @board.save
-        format.html { redirect_to board_url(@board), notice: "Board was successfully updated." }
-        format.json { render :show, status: :ok, location: @board }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @board.errors, status: :unprocessable_entity }
-      end
     end
   end
+  
   
   
 
@@ -96,6 +101,11 @@ class BoardsController < ApplicationController
         redirect_to login_path
       end
     end
+    
+    def can_edit_board?
+      current_player && (@board.white_player_id == current_player.id || @board.black_player_id == current_player.id)
+    end
+
 end
 
 
