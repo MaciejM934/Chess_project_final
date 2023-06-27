@@ -22,14 +22,19 @@
   <p>
     <strong>Nickname:</strong>
     <span><%= player.nickname %></span>
+    <p>Action:</p>
+    <%= link_to "Edit this player", edit_player_path(player), class: "edit-button" %> |
+    <%= link_to "Back to players", players_path, class: "back-button", style: "color: white" %>
+    <p>&nbsp;</p>
+    <%= form_with(model: player, url: player_path(player), method: :delete, data: { confirm: "Are you sure?" }) do |form| %>
+      <%= form.submit "Destroy this player", class: "destroy-button" %>
+    <% end %>
+    <p>&nbsp;</p>
+    <p>Press the button to play:</p>
+    <%= link_to "Go to boards", boards_path, class: "back-button", style: "color: white" %>
   </p>
 </div>
 
-<div class="player-actions">
-<%= link_to "Edit this player", edit_player_path(player), class: "edit-button" %>|
-  <%= link_to "Back to players", players_path, class: "back-button", style: "color: white" %>
-  <%= button_to "Destroy this player", @player, method: :delete, class: "destroy-button" %>
-  <p>Press the button to play:</p>
-  <%= link_to "Go to boards", boards_path, class: "back-button", style: "color: white" %>
 
-</div>
+
+

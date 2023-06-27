@@ -43,7 +43,8 @@
 <div class="players-container" id="players">
   <% @players.each do |player| %>
     <div class="player-details">
-      <%= render player %>
+      <strong>Nickname:</strong>
+      <span><%= player.nickname %></span>
       <p>
         <%= link_to "Show this player", player %>
       </p>
