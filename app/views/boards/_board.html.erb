@@ -1,37 +1,46 @@
-<div id="<%= dom_id board %>">
-  <p>
-    <strong>History string:</strong>
-    <%= board.history_string %>
-  </p>
+<div id="<%= dom_id(board) %>" style="text-align: center;">
+  <table style="border-collapse: collapse; margin: 0 auto;">
+    <thead>
+      <tr>
+        <th style="border: 1px solid white; padding: 8px;">History String</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% board.history_string.split('/').each do |move| %>
+        <tr>
+          <td style="border: 1px solid white; padding: 8px;"><%= move %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 
   <p>
     <strong>Game name:</strong>
     <%= board.game_name %>
   </p>
 
-<%= form_with(model: board) do |model| %>
-  <% if board.errors.any? %>
-  <div style="color: red">
-    <h2><%= pluralize(board.errors.count, "error") %> prohibited this board from being saved:</h2>
-    <ul>
-      <% board.errors.each do |error| %>
-        <li><%= error.full_message %></li>
+  <%= form_with(model: board) do |form| %>
+    <% if board.errors.any? %>
+      <div style="color: red;">
+        <h2><%= pluralize(board.errors.count, "error") %> prohibited this board from being saved:</h2>
+        <ul>
+          <% board.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% else %>
+      <% if flash[:alert].present? %>
+        <div style="color: red;">
+          <%= flash[:alert] %>
+        </div>
       <% end %>
-    </ul>
-  </div>
-  <% else %>
-  <% if flash[:alert].present? %>
-    <div style="color: red">
-      <%= flash[:alert] %>
+    <% end %>
+
+    <div class="actions" style="display: flex; justify-content: center; margin-top: 20px;">
+      <%= form.label :new_move, class: "block-label" %>
+      <%= form.text_field :new_move, class: "block-input" %>
+      <%= form.submit "Add Move", class: "btn btn-secondary" %>
     </div>
   <% end %>
-<% end %>
-
-<div class="actions">
-  <%= model.label :new_move, style: "display: block" %>
-  <%= model.text_field :new_move, style: "display: block" %>
-  <%= model.submit "Add Move", class: "btn-secondary" %>
-</div>
-<% end %>
-
 </div>

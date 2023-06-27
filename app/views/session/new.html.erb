@@ -16,7 +16,7 @@
   </div>
 
   <div class="login-section">
-    <h2 class="login-heading">Zaloguj się</h2>
+    <h2 class="login-heading">Sign In</h2>
 
     <%= form_for(:session, url: login_path) do |f| %>
       <div class="form-group">
@@ -32,9 +32,9 @@
       <div class="spacer"></div>
       
       <div class="actions">
-        <%= f.submit "Zaloguj się", class: "btn btn-primary" %>
+        <%= f.submit "Sign In", class: "btn btn-primary" %>
       <div class="spacer"></div>
-      <%= link_to "Zarejestruj się", new_player_path, class: "btn btn-primary" %>
+      <%= link_to "Registration", new_player_path, class: "btn btn-primary" %>
       </div>
     <% end %>
 

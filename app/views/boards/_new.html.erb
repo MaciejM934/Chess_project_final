@@ -17,7 +17,7 @@
     <% end %>
   
     <div class="field">
-      <%= form.label :black_player_id %>
+      <%= form.label :black_player_id, style: "display: block"%>
       <%= form.collection_select :black_player_id, Player.all, :id, :nickname, prompt: true %>
     </div>
   
@@ -27,6 +27,7 @@
     </div>
   
     <div class="actions">
+    
       <%= form.submit "Create Board", class: "btn-secondary" %>
     </div>
   <% end %>

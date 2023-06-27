@@ -1,7 +1,7 @@
 <span class="navbar-text">
 <% if logged_in? %>
 <div> Welcome <%= current_player.nickname %> </div>
-    <%= link_to "Sign out", logout_path, method: :delete %>
+    <%= link_to "Sign out", logout_path, method: :delete, class: "btn btn-danger" %>
 <% else %>
     
 <% end %>
